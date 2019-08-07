@@ -1,0 +1,21 @@
+@import '../../variables.scss';
+
+.counters-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+
+  .counters-button {
+    width: calc(100% - 0.4rem);
+    font-size: 1rem;
+
+    &.reset {
+      color: $darkTextColour;
+    }
+
+    &.add {
+      background: $primaryGreenColour;
+      color: $whiteTextColour;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+@import './variables.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Trebuchet MS;
+  color: $darkTextColour;
+}
+
+.App {
+  text-align: center;
+}
+
+button {
+  height: $boxSize;
+  margin: $boxMargin;
+  padding: 0 0.5rem;
+  outline: none;
+  border: none;
+  border-radius: $boxBorderRadius;
+}
+
+button:hover:not(:disabled) {
+  cursor: pointer;
+  opacity: 0.9;
+}

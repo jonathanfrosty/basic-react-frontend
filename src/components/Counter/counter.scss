@@ -1,0 +1,60 @@
+@import '../../variables.scss';
+
+.counter-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  .counter-data-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: $darkTextColour;
+  }
+
+  .item-data {
+    background: $primaryOrangeColour;
+  }
+
+  .item-quantity {
+    background: $primaryBlueColour;
+  }
+
+  .item-data,
+  .item-quantity {
+    height: $boxSize;
+    line-height: $boxSize;
+    margin: $boxMargin;
+    padding: 0 0.5rem;
+    text-align: center;
+    color: $whiteTextColour;
+    border-radius: $boxBorderRadius;
+    user-select: none;
+  }
+
+  .total-cost {
+    color: $lightTextColour;
+    margin-left: $boxMargin;
+    font-size: 0.9rem;
+  }
+
+  .zero {
+    background: $lightOrangeColour;
+  }
+
+  button {
+    width: $boxSize;
+    color: $darkTextColour;
+    font-size: 1.3rem;
+  }
+
+  button:disabled {
+    opacity: 0.5;
+  }
+
+  .delete {
+    color: $whiteTextColour;
+    background: $deleteBoxColour;
+  }
+}

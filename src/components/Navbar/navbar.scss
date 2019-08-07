@@ -1,0 +1,86 @@
+@import '../../variables.scss';
+
+@function sidePadding() {
+  @return $containerMargin + $boxMargin;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  color: $whiteTextColour;
+  background: $primaryBlueColour;
+  padding: 0.5rem sidePadding();
+
+  h3 {
+    padding: 0.5rem;
+    color: $whiteTextColour;
+  }
+
+  .nav-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    list-style: none;
+
+    * {
+      text-decoration: none;
+    }
+
+    li {
+      margin-left: 2rem;
+      padding: 0.5rem;
+      height: 100%;
+      position: relative;
+      opacity: 0.8;
+      color: $whiteTextColour;
+      user-select: none;
+
+      &:after {
+        content: '';
+        position: absolute;
+        display: inline-block;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        height: 1px;
+        border-bottom: 2px solid #fff;
+        transform: scaleX(0);
+        transition: transform 200ms ease-in-out;
+      }
+
+      &:visited {
+        color: $whiteTextColour;
+      }
+
+      &:hover {
+        cursor: pointer;
+        opacity: 1;
+      }
+
+      &:hover:after {
+        transform: scaleX(1);
+      }
+    }
+
+    .active > li {
+      opacity: 1;
+    }
+
+    .active > li:after {
+      transform: scaleX(1);
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  nav {
+    padding: 0.5rem;
+
+    .nav-list li {
+      margin-left: 1rem;
+    }
+  }
+}

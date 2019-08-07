@@ -1,0 +1,18 @@
+@import '../../variables.scss';
+
+.home-wrapper {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h1,
+h2 {
+  color: $darkTextColour;
+}

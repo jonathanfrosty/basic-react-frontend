@@ -12,7 +12,7 @@ export default function Page() {
     return (Math.random() * (100 - 0.01 + 1) + 0.01).toFixed(2);
   };
 
-  const [registered, setRegistered] = useState(true);
+  const [registered, setRegistered] = useState(false);
   const [activeFormIndex, setActiveFormIndex] = useState(0);
   const [formsState, setFormsState] = useState([
     [

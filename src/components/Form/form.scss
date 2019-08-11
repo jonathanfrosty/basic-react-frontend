@@ -16,15 +16,6 @@
   > form {
     width: 90%;
   }
-
-  button {
-    color: $darkTextColour;
-  }
-
-  button:last-child {
-    background: $primaryBlueColour;
-    color: $whiteTextColour;
-  }
 }
 
 .field-wrapper {
@@ -47,8 +38,12 @@
     padding: 0.5rem;
     border: none;
     outline: none;
-    border-bottom: 2px solid $primaryBlueColour;
+    border-bottom: 2px solid $lightTextColour;
     background: #f4f4f4;
+  }
+
+  > input:focus {
+    border-color: $primaryBlueColour;
   }
 }
 

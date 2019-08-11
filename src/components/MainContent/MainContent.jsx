@@ -5,7 +5,25 @@ import ShoppingBasket from '../ShoppingBasket/ShoppingBasket';
 import Counters from '../Counters/Counters';
 import Counter from '../Counter/Counter';
 import { Switch, Route } from 'react-router-dom';
-import './page.scss';
+import './mainContent.scss';
+
+const initalFormsState = [
+  {
+    title: { label: 'Title', content: '' },
+    firstName: { label: 'First Name', content: '' },
+    lastName: { label: 'Last Name', content: '' }
+  },
+  {
+    email: { label: 'Email', content: '' },
+    mobileNumber: { label: 'Mobile Number', content: '' },
+    occupation: { label: 'Occupation', content: '' }
+  },
+  {
+    country: { label: 'Country of Residence', content: '' },
+    county: { label: 'County', content: '' },
+    cityOrTown: { label: 'City/Town', content: '' }
+  }
+];
 
 export default function Page() {
   const generateRandomCost = () => {
@@ -14,31 +32,17 @@ export default function Page() {
 
   const [registered, setRegistered] = useState(false);
   const [activeFormIndex, setActiveFormIndex] = useState(0);
-  const [formsState, setFormsState] = useState([
-    [
-      { label: 'Title', content: '' },
-      { label: 'First Name', content: '' },
-      { label: 'Last Name', content: '' }
-    ],
-    [
-      { label: 'Email', content: '' },
-      { label: 'Mobile Number', content: '' },
-      { label: 'Occupation', content: '' }
-    ],
-    [
-      { label: 'Country of Residence', content: '' },
-      { label: 'County', content: '' },
-      { label: 'City/Town', content: '' }
-    ]
-  ]);
+  const [formsState, setFormsState] = useState(initalFormsState);
   const [counters, setCounters] = useState([
-    { id: 1, cost: generateRandomCost(), quantity: 0 },
-    { id: 2, cost: generateRandomCost(), quantity: 1 },
-    { id: 3, cost: generateRandomCost(), quantity: 2 }
+    { id: 1, cost: generateRandomCost(), value: 0 },
+    { id: 2, cost: generateRandomCost(), value: 1 },
+    { id: 3, cost: generateRandomCost(), value: 2 }
   ]);
 
   const handleContinue = index => {
-    let emptyField = formsState[index].find(field => field.content === '');
+    let emptyField = Object.values(formsState[index]).find(
+      value => value.content === ''
+    );
     if (!emptyField) {
       if (index < formsState.length - 1)
         setActiveFormIndex(activeFormIndex + 1);
@@ -54,32 +58,27 @@ export default function Page() {
     const newFormsState = formsState.map((formState, formIndex) => {
       if (index !== formIndex) return formState;
 
-      const form = [...formState];
-      const obj = form.find(field => field.label === e.target.name);
-      obj.content = e.target.value;
-      return form;
+      return {
+        ...formState,
+        [e.target.name]: {
+          label: formState[e.target.name].label,
+          content: e.target.value
+        }
+      };
     });
 
     setFormsState(newFormsState);
   };
 
   const handleRegisterAgain = () => {
-    const newFormsState = formsState.map(formState => {
-      const form = [...formState];
-      const newForm = form.map(field => {
-        return { label: field.label, content: '' };
-      });
-      return newForm;
-    });
-
-    setFormsState(newFormsState);
+    setFormsState(initalFormsState);
     setActiveFormIndex(0);
     setRegistered(false);
   };
 
   const handleReset = () => {
     const newCounters = counters.map(counter => {
-      counter.quantity = 0;
+      counter.value = 0;
       return counter;
     });
 
@@ -91,7 +90,7 @@ export default function Page() {
       counters.length === 0 ? 1 : counters[counters.length - 1].id + 1;
     const newCounters = [
       ...counters,
-      { id: newId, cost: generateRandomCost(), quantity: 0 }
+      { id: newId, cost: generateRandomCost(), value: 0 }
     ];
 
     setCounters(newCounters);
@@ -107,7 +106,7 @@ export default function Page() {
     const newCounters = [...counters];
     newCounters.forEach(counter => {
       if (counter.id === id) {
-        counter.quantity += change;
+        counter.value += change;
         return;
       }
     });

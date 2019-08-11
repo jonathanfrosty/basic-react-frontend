@@ -1,0 +1,6 @@
+@import '../../variables.scss';
+
+button:last-child {
+  background: $primaryBlueColour;
+  color: $whiteTextColour;
+}

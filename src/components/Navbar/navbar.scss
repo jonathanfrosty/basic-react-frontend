@@ -5,6 +5,10 @@
 }
 
 nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -12,11 +16,13 @@ nav {
   text-align: center;
   color: $whiteTextColour;
   background: $primaryBlueColour;
-  padding: 0.5rem sidePadding();
+  padding: 1rem sidePadding();
 
-  h3 {
-    padding: 0.5rem;
+  .app-title {
     color: $whiteTextColour;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
   }
 
   .nav-list {
@@ -25,11 +31,8 @@ nav {
     align-items: center;
     list-style: none;
 
-    * {
+    .nav-link {
       text-decoration: none;
-    }
-
-    li {
       margin-left: 2rem;
       padding: 0.5rem;
       height: 100%;
@@ -65,11 +68,11 @@ nav {
       }
     }
 
-    .active > li {
+    .active {
       opacity: 1;
     }
 
-    .active > li:after {
+    .active:after {
       transform: scaleX(1);
     }
   }
@@ -77,9 +80,9 @@ nav {
 
 @media (max-width: 800px) {
   nav {
-    padding: 0.5rem;
+    padding: 1rem;
 
-    .nav-list li {
+    .nav-list .nav-link {
       margin-left: 1rem;
     }
   }

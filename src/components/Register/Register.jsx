@@ -45,7 +45,7 @@ export default function Register({
         <h2>Registration Complete</h2>
         <div className='register-again-wrapper'>
           <button className='register-again-button' onClick={onRegisterAgain}>
-            Register again?
+            Register again
           </button>
         </div>
       </div>

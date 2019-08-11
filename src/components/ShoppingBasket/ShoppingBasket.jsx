@@ -5,7 +5,7 @@ export default function ShoppingBasket({ counters, renderItem }) {
   const getTotalItemsCount = () => {
     let totalItemsCount = 0;
     counters.forEach(counter => {
-      totalItemsCount += counter.quantity;
+      totalItemsCount += counter.value;
     });
 
     return totalItemsCount;
@@ -14,7 +14,7 @@ export default function ShoppingBasket({ counters, renderItem }) {
   const getTotalItemsCost = () => {
     let totalItemsCost = 0;
     counters.forEach(counter => {
-      totalItemsCost += counter.quantity * counter.cost;
+      totalItemsCost += counter.value * counter.cost;
     });
 
     return totalItemsCost.toFixed(2);

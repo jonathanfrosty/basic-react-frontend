@@ -1,21 +1,31 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import './navbar.scss';
 
 export default function Navbar() {
   return (
     <nav>
-      <h3>React App</h3>
+      <Link className='app-title' to='/'>
+        React App
+      </Link>
       <ul className='nav-list'>
-        <NavLink activeClassName='active' exact to={'/'}>
-          <li name='home'>Home</li>
-        </NavLink>
-        <NavLink to={'/register'}>
-          <li name='register'>Register</li>
-        </NavLink>
-        <NavLink to={'/shoppingbasket'}>
-          <li name='shopping-basket'>Shopping Basket</li>
-        </NavLink>
+        <li>
+          <NavLink className='nav-link' activeClassName='active' exact to='/'>
+            Home
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink className='nav-link' to='/register'>
+            Register
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink className='nav-link' to='/shoppingbasket'>
+            Shopping Basket
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );

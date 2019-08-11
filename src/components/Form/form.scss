@@ -40,10 +40,14 @@
     outline: none;
     border-bottom: 2px solid $lightTextColour;
     background: #f4f4f4;
-  }
 
-  > input:focus {
-    border-color: $primaryBlueColour;
+    &:focus {
+      border-color: $primaryBlueColour;
+    }
+
+    &.filled {
+      border-color: $primaryBlueColour;
+    }
   }
 }
 

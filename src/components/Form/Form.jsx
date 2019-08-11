@@ -2,36 +2,42 @@ import React from 'react';
 import FormButtons from '../FormButtons/FormButtons';
 import './form.scss';
 
-export default function Form({ formMetaData, formState, onChange, onBack, onContinue }) {
-  const { index, activeFormIndex, totalForms } = formMetaData;
+export default function Form({ formIndexData, form, onChange, onBack, onContinue }) {
+  const { index, activeFormIndex, finalIndex } = formIndexData;
 
   const inactive = activeFormIndex !== index;
-  const firstForm = index === 0;
-  const finalForm = index === totalForms - 1;
+  const isFirstForm = index === 0;
+  const isFinalForm = index === finalIndex;
 
-  const handleClickBack = () => {
-    onBack();
+  const canContinue = () => {
+    let isAnEmptyField = Object.values(form).find(value => value.content === '');
+    return !isAnEmptyField;
   };
 
-  const handleClickNext = () => {
-    onContinue(index);
+  const handleContinue = () => {
+    if (canContinue()) onContinue(isFinalForm);
   };
 
   return (
     <form className={`form-wrapper ${inactive ? 'inactive' : ''}`}>
-      {Object.entries(formState).map(([key, value]) => {
+      {Object.entries(form).map(([key, value]) => {
         return (
           <div key={key} className='field-wrapper'>
             <label>{value.label}</label>
-            <input name={key} onChange={input => onChange(input, index)} value={value.content} />
+            <input
+              className={value.content ? 'filled' : ''}
+              name={key}
+              value={value.content}
+              onChange={onChange}
+            />
           </div>
         );
       })}
       <FormButtons
-        firstForm={firstForm}
-        finalForm={finalForm}
-        onBack={handleClickBack}
-        onContinue={handleClickNext}
+        isFirstForm={isFirstForm}
+        isFinalForm={isFinalForm}
+        onBack={onBack}
+        onContinue={handleContinue}
       />
     </form>
   );

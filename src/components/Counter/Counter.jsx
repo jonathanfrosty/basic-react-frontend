@@ -1,7 +1,7 @@
 import React from 'react';
 import './counter.scss';
 
-export default function Counter({ counter, handleQuantityChange, onDelete }) {
+export default function Counter({ counter, onValueChange, onDelete }) {
   const { id, cost, value } = counter;
 
   const data = `Item ${id} - £${cost}`;
@@ -16,8 +16,8 @@ export default function Counter({ counter, handleQuantityChange, onDelete }) {
       </div>
 
       <div>
-        <button onClick={() => handleQuantityChange(id, 1)}>&#43;</button>
-        <button onClick={() => handleQuantityChange(id, -1)} disabled={value === 0}>
+        <button onClick={() => onValueChange(id, 1)}>&#43;</button>
+        <button onClick={() => onValueChange(id, -1)} disabled={value === 0}>
           &minus;
         </button>
         <button className='delete' onClick={() => onDelete(id)}>

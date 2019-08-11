@@ -18,4 +18,8 @@
       color: $whiteTextColour;
     }
   }
+
+  *:disabled {
+    opacity: 0.5;
+  }
 }

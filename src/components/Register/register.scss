@@ -10,13 +10,6 @@
     margin-bottom: 2rem;
     color: $darkTextColour;
   }
-
-  .forms-wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
 }
 
 .registration-complete-wrapper {
@@ -30,11 +23,5 @@
     padding: 0;
     text-decoration: underline;
     color: $lightTextColour;
-  }
-}
-
-@media (max-width: 800px) {
-  .registration-wrapper .forms-wrapper {
-    flex-direction: column;
   }
 }

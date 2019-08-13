@@ -17,6 +17,7 @@ nav {
   color: $whiteTextColour;
   background: $primaryBlueColour;
   padding: 1rem sidePadding();
+  box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.3);
 
   .app-title {
     color: $whiteTextColour;
@@ -40,6 +41,7 @@ nav {
       opacity: 0.8;
       color: $whiteTextColour;
       user-select: none;
+      transition: opacity ease-out 200ms;
 
       &:after {
         content: '';
@@ -51,7 +53,7 @@ nav {
         height: 1px;
         border-bottom: 2px solid #fff;
         transform: scaleX(0);
-        transition: transform 200ms ease-in-out;
+        transition: transform 200ms ease-out;
       }
 
       &:visited {
@@ -61,10 +63,6 @@ nav {
       &:hover {
         cursor: pointer;
         opacity: 1;
-      }
-
-      &:hover:after {
-        transform: scaleX(1);
       }
     }
 

@@ -2,20 +2,20 @@ import React from 'react';
 import './formButtons.scss';
 
 export default function FormButtons({ isFirstForm, isFinalForm, onBack, onContinue }) {
-  const handleBack = e => {
+  const handleClickBack = e => {
     e.preventDefault();
-    onBack();
+    if (e.detail !== 0) onBack();
   };
 
-  const handleContinue = e => {
+  const handleClickContinue = e => {
     e.preventDefault();
-    onContinue();
+    if (e.detail !== 0) onContinue();
   };
 
   return (
     <div>
-      {!isFirstForm && <button onClick={handleBack}>Back</button>}
-      <button onClick={handleContinue}>{isFinalForm ? 'Confirm' : 'Continue'}</button>
+      {!isFirstForm && <button onClick={handleClickBack}>Back</button>}
+      <button onClick={handleClickContinue}>{isFinalForm ? 'Confirm' : 'Continue'}</button>
     </div>
   );
 }

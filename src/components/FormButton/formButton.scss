@@ -1,0 +1,12 @@
+@import '../../variables.scss';
+
+.form-btn {
+  &.back {
+    color: $darkTextColour;
+  }
+
+  &.next {
+    background: $primaryBlueColour;
+    color: $whiteTextColour;
+  }
+}

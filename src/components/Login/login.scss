@@ -1,0 +1,18 @@
+@import '../../variables.scss';
+
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  .login-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: $darkTextColour;
+  }
+}
+
+@media (max-width: 800px) {
+  .login-wrapper {
+    width: 100%;
+  }
+}

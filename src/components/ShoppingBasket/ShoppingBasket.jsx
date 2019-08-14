@@ -1,47 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { basketActions } from '../../actions';
 import Counters from '../Counters/Counters';
 import Counter from '../Counter/Counter';
 import './shoppingBasket.scss';
 
-export default function ShoppingBasket() {
-  const [counters, setCounters] = useState([]);
-
-  const generateRandomCost = () => {
-    return (Math.random() * (100 - 0.01 + 1) + 0.01).toFixed(2);
-  };
-
-  const handleReset = () => {
-    const newCounters = counters.map(counter => {
-      counter.value = 0;
-      return counter;
-    });
-
-    setCounters(newCounters);
-  };
-
-  const handleAdd = () => {
-    const newId = counters.length === 0 ? 1 : counters[counters.length - 1].id + 1;
-    const newCounters = [...counters, { id: newId, cost: generateRandomCost(), value: 0 }];
-
-    setCounters(newCounters);
-  };
-
+export function ShoppingBasket({
+  counters,
+  changeValue,
+  addCounter,
+  deleteCounter,
+  resetCounters
+}) {
   const handleDelete = id => {
-    const newCounters = counters.filter(counter => counter.id !== id);
-
-    setCounters(newCounters);
+    deleteCounter(id);
   };
 
   const handleValueChange = (id, change) => {
-    const newCounters = [...counters];
-    newCounters.forEach(counter => {
-      if (counter.id === id) {
-        counter.value += change;
-        return;
-      }
-    });
-
-    setCounters(newCounters);
+    changeValue(id, change);
   };
 
   const getTotalItemsCount = () => {
@@ -66,8 +42,8 @@ export default function ShoppingBasket() {
     <div className='shopping-basket-wrapper'>
       <Counters
         counters={counters}
-        onReset={handleReset}
-        onAdd={handleAdd}
+        onReset={resetCounters}
+        onAdd={addCounter}
         render={counter => (
           <Counter
             key={counter.id}
@@ -86,3 +62,29 @@ export default function ShoppingBasket() {
     </div>
   );
 }
+
+const mapStateToProps = state => {
+  return { counters: state.basket };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    changeValue: (id, change) => {
+      dispatch(basketActions.changeValue(id, change));
+    },
+    addCounter: () => {
+      dispatch(basketActions.addCounter());
+    },
+    deleteCounter: id => {
+      dispatch(basketActions.deleteCounter(id));
+    },
+    resetCounters: () => {
+      dispatch(basketActions.resetCounters());
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ShoppingBasket);

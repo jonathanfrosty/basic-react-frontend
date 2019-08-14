@@ -1,27 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { userActions } from '../../actions';
 import FormsList from '../FormsList/FormsList';
 import './register.scss';
 
 const initalForms = [
   {
-    title: { label: 'Title', content: '' },
-    firstName: { label: 'First Name', content: '' },
-    lastName: { label: 'Last Name', content: '' }
+    title: { label: 'Title', content: '', type: 'text' },
+    firstName: { label: 'First Name', content: '', type: 'text' },
+    lastName: { label: 'Last Name', content: '', type: 'text' }
   },
   {
-    email: { label: 'Email', content: '' },
-    mobileNumber: { label: 'Mobile Number', content: '' },
-    occupation: { label: 'Occupation', content: '' }
+    email: { label: 'Email', content: '', type: 'email' },
+    password: { label: 'Password', content: '', type: 'password' },
+    mobileNumber: { label: 'Mobile Number', content: '', type: 'tel' }
   },
   {
-    country: { label: 'Country of Residence', content: '' },
-    county: { label: 'County', content: '' },
-    cityOrTown: { label: 'City/Town', content: '' }
+    country: { label: 'Country of Residence', content: '', type: 'text' },
+    county: { label: 'County', content: '', type: 'text' },
+    cityOrTown: { label: 'City/Town', content: '', type: 'text' }
   }
 ];
 
-export default function Register({ registered, setRegistered }) {
+export function Register({ registered, register, resetRegistration }) {
   const [forms, setForms] = useState(initalForms);
+
+  useEffect(() => {
+    return () => {
+      resetRegistration();
+    };
+  }, [resetRegistration]);
 
   const handleChange = (e, activeFormIndex) => {
     const newForms = forms.map((form, formIndex) => {
@@ -30,7 +38,7 @@ export default function Register({ registered, setRegistered }) {
       return {
         ...form,
         [e.target.name]: {
-          label: form[e.target.name].label,
+          ...form[e.target.name],
           content: e.target.value
         }
       };
@@ -41,11 +49,7 @@ export default function Register({ registered, setRegistered }) {
 
   const handleReset = () => {
     setForms(initalForms);
-    setRegistered(false);
-  };
-
-  const handleComplete = () => {
-    setRegistered(true);
+    resetRegistration();
   };
 
   if (!registered) {
@@ -55,7 +59,8 @@ export default function Register({ registered, setRegistered }) {
         <FormsList
           forms={forms}
           onChange={(e, activeFormIndex) => handleChange(e, activeFormIndex)}
-          onComplete={handleComplete}
+          onComplete={() => register(forms)}
+          finalText='Register'
         />
       </div>
     );
@@ -72,3 +77,24 @@ export default function Register({ registered, setRegistered }) {
     );
   }
 }
+
+const mapStateToProps = state => {
+  const { registered } = state.register;
+  return { registered };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    register: () => {
+      dispatch(userActions.register());
+    },
+    resetRegistration: () => {
+      dispatch(userActions.resetRegistration());
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Register);

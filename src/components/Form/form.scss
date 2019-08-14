@@ -1,7 +1,7 @@
 @import '../../variables.scss';
 
 .form-wrapper {
-  width: 100%;
+  width: 25rem;
   margin: 0 1rem;
   display: flex;
   flex-direction: column;
@@ -15,6 +15,20 @@
 
   > form {
     width: 90%;
+  }
+
+  .form-buttons-wrapper {
+    display: flex;
+
+    .back {
+      order: 1;
+      width: 4rem;
+    }
+
+    .next {
+      order: 2;
+      width: 7rem;
+    }
   }
 }
 

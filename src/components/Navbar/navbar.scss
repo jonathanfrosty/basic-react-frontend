@@ -1,13 +1,10 @@
 @import '../../variables.scss';
 
-@function sidePadding() {
-  @return $containerMargin + $boxMargin;
-}
-
 nav {
   position: fixed;
   top: 0;
   width: 100%;
+  height: 50px;
   z-index: 1;
   display: flex;
   flex-direction: row;
@@ -16,7 +13,7 @@ nav {
   text-align: center;
   color: $whiteTextColour;
   background: $primaryBlueColour;
-  padding: 1rem sidePadding();
+  padding: 0.5rem $containerMargin;
   box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.3);
 
   .app-title {
@@ -32,6 +29,10 @@ nav {
     align-items: center;
     list-style: none;
 
+    .nav-link:not(.logout) {
+      transition: opacity ease-out 200ms;
+    }
+
     .nav-link {
       text-decoration: none;
       margin-left: 2rem;
@@ -41,20 +42,6 @@ nav {
       opacity: 0.8;
       color: $whiteTextColour;
       user-select: none;
-      transition: opacity ease-out 200ms;
-
-      &:after {
-        content: '';
-        position: absolute;
-        display: inline-block;
-        width: 100%;
-        left: 0;
-        bottom: 0;
-        height: 1px;
-        border-bottom: 2px solid #fff;
-        transform: scaleX(0);
-        transition: transform 200ms ease-out;
-      }
 
       &:visited {
         color: $whiteTextColour;
@@ -66,6 +53,19 @@ nav {
       }
     }
 
+    :not(.logout):after {
+      content: '';
+      position: absolute;
+      display: inline-block;
+      width: 100%;
+      left: 0;
+      bottom: 0;
+      height: 1px;
+      border-bottom: 2px solid #fff;
+      transform: scaleX(0);
+      transition: transform 200ms ease-out;
+    }
+
     .active {
       opacity: 1;
     }
@@ -73,15 +73,27 @@ nav {
     .active:after {
       transform: scaleX(1);
     }
+
+    .logout {
+      padding: 0.5rem;
+      margin-left: 1rem;
+      opacity: 1;
+      background: $primaryRedColour;
+      border-radius: $boxBorderRadius;
+    }
+
+    .logout:hover {
+      opacity: 0.95;
+    }
   }
 }
 
 @media (max-width: 800px) {
   nav {
-    padding: 1rem;
+    padding: 0.5rem 1rem;
 
     .nav-list .nav-link {
-      margin-left: 1rem;
+      margin-left: 0.5rem;
     }
   }
 }

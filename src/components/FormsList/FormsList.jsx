@@ -3,7 +3,7 @@ import Form from '../Form/Form';
 import FormButton from '../FormButton/FormButton';
 import './formsList.scss';
 
-export default function FormsList({ forms, onChange, onComplete, finalText }) {
+export default function FormsList({ forms, onChange, CompleteButton }) {
   const [activeFormIndex, setActiveFormIndex] = useState(0);
 
   const handleBack = () => {
@@ -18,10 +18,7 @@ export default function FormsList({ forms, onChange, onComplete, finalText }) {
     <div className='forms-wrapper'>
       {forms.map((form, index) => {
         const NextButton = ({ canClick }) => {
-          if (index === forms.length - 1)
-            return (
-              <FormButton text={finalText} type='next' onClick={onComplete} canClick={canClick} />
-            );
+          if (index === forms.length - 1) return <CompleteButton canClick={canClick} />;
           return (
             <FormButton text='Continue' type='next' onClick={handleNext} canClick={canClick} />
           );
@@ -29,9 +26,7 @@ export default function FormsList({ forms, onChange, onComplete, finalText }) {
 
         const BackButton = () => {
           return (
-            index !== 0 && (
-              <FormButton text='Back' type='back' onClick={handleBack} canClick={() => true} />
-            )
+            index !== 0 && <FormButton text='Back' type='back' onClick={handleBack} canClick />
           );
         };
 

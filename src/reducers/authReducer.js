@@ -1,13 +1,23 @@
-import { LOGIN_SUCCESS, LOGOUT } from '../constants/actionTypes';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT } from '../constants/actionTypes';
 
-const initialState = { loggedIn: false, userEmail: '', userPass: '' };
+const initialState = { loggedIn: false, loggingIn: false, username: '', password: '' };
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case LOGIN_REQUEST:
+      return {
+        ...state,
+        loggingIn: true
+      };
     case LOGIN_SUCCESS:
-      return { loggedIn: true, userEmail: action.payload.email, userPass: action.payload.password };
+      return {
+        loggedIn: true,
+        loggingIn: false,
+        username: action.user.username.content,
+        password: action.user.password.content
+      };
     case LOGOUT:
-      return { loggedIn: false, userEmail: '', userPass: '' };
+      return initialState;
     default:
       return state;
   }

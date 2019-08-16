@@ -1,13 +1,15 @@
-import { REGISTER_SUCCESS, RESET_REGISTRATION } from '../constants/actionTypes';
+import { REGISTER_REQUEST, REGISTER_SUCCESS, RESET_REGISTRATION } from '../constants/actionTypes';
 
-const initialState = { registered: false };
+const initialState = { registered: false, registering: false };
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case REGISTER_REQUEST:
+      return { ...state, registering: true };
     case REGISTER_SUCCESS:
-      return { registered: true };
+      return { registered: true, registering: false };
     case RESET_REGISTRATION:
-      return { registered: false };
+      return initialState;
     default:
       return state;
   }

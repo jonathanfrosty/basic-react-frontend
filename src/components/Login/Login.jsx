@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userActions } from '../../actions';
 import Form from '../Form/Form';
 import FormButton from '../FormButton/FormButton';
+import PropTypes from 'prop-types';
 import './login.scss';
 
 const initialLoginForm = {
-  email: { label: 'Email', content: '', type: 'email' },
+  username: { label: 'Username', content: '', type: 'text' },
   password: { label: 'Password', content: '', type: 'password' }
 };
 
-export function Login({ login, history }) {
+export function Login({ login, loggingIn }) {
   const [form, setForm] = useState(initialLoginForm);
 
   const handleChange = e => {
@@ -27,12 +27,19 @@ export function Login({ login, history }) {
   };
 
   const handleLogin = () => {
-    history.push('/');
-    login();
+    login(form);
   };
 
   const LoginButton = ({ canClick }) => {
-    return <FormButton text='Login' type='next' onClick={handleLogin} canClick={canClick} />;
+    return (
+      <FormButton
+        text='Login'
+        type='next'
+        onClick={handleLogin}
+        canClick={canClick}
+        loading={loggingIn}
+      />
+    );
   };
 
   return (
@@ -43,15 +50,17 @@ export function Login({ login, history }) {
   );
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    login: () => {
-      dispatch(userActions.login());
-    }
-  };
+Login.propTypes = {
+  login: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({ loggingIn: state.auth.loggingIn });
+
+const actionCreators = {
+  login: userActions.login
 };
 
 export default connect(
-  null,
-  mapDispatchToProps
-)(withRouter(Login));
+  mapStateToProps,
+  actionCreators
+)(Login);

@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
 import { userActions } from '../../actions';
+import PropTypes from 'prop-types';
 import './navbar.scss';
 
-export function Navbar({ loggedIn, logout }) {
+export function Navbar({ loggedIn, logout, username, history }) {
+  useEffect(() => {
+    if (loggedIn) history.push('/');
+  }, [loggedIn, history]);
   return (
     <nav>
       <Link className='app-title' to='/'>
@@ -42,9 +46,13 @@ export function Navbar({ loggedIn, logout }) {
             </li>
 
             <li>
-              <NavLink className='nav-link logout' onClick={logout} to='/'>
+              <div className='nav-box username'>{username}</div>
+            </li>
+
+            <li>
+              <Link className='nav-box logout' onClick={logout} to='/'>
                 Log Out
-              </NavLink>
+              </Link>
             </li>
           </>
         )}
@@ -53,20 +61,22 @@ export function Navbar({ loggedIn, logout }) {
   );
 }
 
-const mapStateToProps = state => {
-  const { loggedIn } = state.auth;
-  return { loggedIn };
+Navbar.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    logout: () => {
-      dispatch(userActions.logout());
-    }
-  };
+const mapStateToProps = state => {
+  const { loggedIn, username } = state.auth;
+  return { loggedIn, username };
+};
+
+const actionCreators = {
+  logout: userActions.logout
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(Navbar);
+  actionCreators
+)(withRouter(Navbar));

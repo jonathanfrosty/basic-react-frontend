@@ -11,11 +11,8 @@ export default function MainContent() {
     <div className='page-wrapper'>
       <Switch>
         <Route exact path='/' component={Home} />
-
         <Route path='/register' component={Register} />
-
         <Route path='/login' component={Login} />
-
         <Route path='/shoppingbasket' component={ShoppingBasket} />
       </Switch>
     </div>

@@ -29,7 +29,7 @@ export default function Form({ form, isActive, onChange, NextButton, BackButton 
       })}
       <div className='form-buttons-wrapper'>
         <NextButton className='next' canClick={isFormComplete} />
-        {BackButton && <BackButton className='back' canClick={() => true} />}
+        {BackButton && <BackButton className='back' canClick />}
       </div>
     </form>
   );

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { basketActions } from '../../actions';
 import Counters from '../Counters/Counters';
 import Counter from '../Counter/Counter';
+import PropTypes from 'prop-types';
 import './shoppingBasket.scss';
 
 export function ShoppingBasket({
@@ -63,28 +64,26 @@ export function ShoppingBasket({
   );
 }
 
+ShoppingBasket.propTypes = {
+  counters: PropTypes.array.isRequired,
+  changeValue: PropTypes.func.isRequired,
+  addCounter: PropTypes.func.isRequired,
+  deleteCounter: PropTypes.func.isRequired,
+  resetCounters: PropTypes.func.isRequired
+};
+
 const mapStateToProps = state => {
   return { counters: state.basket };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    changeValue: (id, change) => {
-      dispatch(basketActions.changeValue(id, change));
-    },
-    addCounter: () => {
-      dispatch(basketActions.addCounter());
-    },
-    deleteCounter: id => {
-      dispatch(basketActions.deleteCounter(id));
-    },
-    resetCounters: () => {
-      dispatch(basketActions.resetCounters());
-    }
-  };
+const actionCreators = {
+  changeValue: basketActions.changeValue,
+  addCounter: basketActions.addCounter,
+  deleteCounter: basketActions.deleteCounter,
+  resetCounters: basketActions.resetCounters
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  actionCreators
 )(ShoppingBasket);

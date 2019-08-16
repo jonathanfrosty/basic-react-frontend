@@ -9,4 +9,12 @@
     background: $primaryBlueColour;
     color: $whiteTextColour;
   }
+
+  &.loading {
+    opacity: 0.6;
+    background-image: url('../../assets/loading-spinner.gif');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 25px;
+  }
 }

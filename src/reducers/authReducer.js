@@ -1,6 +1,6 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT } from '../constants/actionTypes';
 
-const initialState = { loggedIn: false, loggingIn: false, username: '', password: '' };
+const initialState = { loggedIn: false, loggingIn: false, user: null };
 
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -13,8 +13,7 @@ export default function(state = initialState, action) {
       return {
         loggedIn: true,
         loggingIn: false,
-        username: action.user.username.content,
-        password: action.user.password.content
+        user: action.user
       };
     case LOGOUT:
       return initialState;

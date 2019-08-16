@@ -16,6 +16,9 @@ Home.propTypes = {
   username: PropTypes.string.isRequired
 };
 
-const mapStateToProps = state => ({ username: state.auth.username });
+const mapStateToProps = state => {
+  const { user } = state.auth;
+  return { username: user ? user.username.content : '' };
+};
 
 export default connect(mapStateToProps)(Home);

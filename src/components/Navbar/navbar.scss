@@ -59,6 +59,19 @@ nav {
         cursor: pointer;
         opacity: 1;
       }
+
+      &:after {
+        content: '';
+        position: absolute;
+        display: inline-block;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        height: 1px;
+        border-bottom: 2px solid #fff;
+        transform: scaleX(0);
+        transition: transform 200ms ease-out;
+      }
     }
 
     .nav-box {
@@ -80,22 +93,9 @@ nav {
       &.username {
         margin-left: 2rem;
         color: $darkTextColour;
-        background: $primaryOrangeColour;
+        background: $offWhiteColour;
         user-select: none;
       }
-    }
-
-    :not(.logout):after {
-      content: '';
-      position: absolute;
-      display: inline-block;
-      width: 100%;
-      left: 0;
-      bottom: 0;
-      height: 1px;
-      border-bottom: 2px solid #fff;
-      transform: scaleX(0);
-      transition: transform 200ms ease-out;
     }
 
     .active {

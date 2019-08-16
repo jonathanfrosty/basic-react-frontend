@@ -15,6 +15,6 @@ export const register = form => async dispatch => {
 export const resetRegistration = () => ({ type: types.RESET_REGISTRATION });
 
 const fakeServerCall = async user => {
-  await new Promise(resolve => setTimeout(resolve, 3000));
+  await new Promise(resolve => setTimeout(resolve, 2000));
   return user;
 };

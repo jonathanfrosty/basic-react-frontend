@@ -68,8 +68,8 @@ Navbar.propTypes = {
 };
 
 const mapStateToProps = state => {
-  const { loggedIn, username } = state.auth;
-  return { loggedIn, username };
+  const { loggedIn, user } = state.auth;
+  return { loggedIn, username: user ? user.username.content : '' };
 };
 
 const actionCreators = {

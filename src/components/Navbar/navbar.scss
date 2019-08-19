@@ -39,13 +39,17 @@ nav {
       height: 100%;
     }
 
+    .nav-link,
+    .nav-box {
+      padding: 0 0.5rem;
+      margin-left: $navItemSeparationWideScreen;
+    }
+
     .nav-link {
       display: flex;
       align-items: center;
       text-decoration: none;
-      margin-left: 2rem;
       height: 100%;
-      padding: 0.5rem;
       position: relative;
       opacity: 0.8;
       color: $offWhiteColour;
@@ -75,9 +79,9 @@ nav {
     }
 
     .nav-box {
-      padding: 0.4rem;
       border-radius: $boxBorderRadius;
       height: $boxSize;
+      line-height: $boxSize;
 
       &.logout {
         margin-left: 0.5rem;
@@ -91,7 +95,6 @@ nav {
       }
 
       &.username {
-        margin-left: 2rem;
         color: $darkTextColour;
         background: $offWhiteColour;
         user-select: none;
@@ -115,7 +118,7 @@ nav {
     .nav-list {
       .nav-link,
       .nav-box.username {
-        margin-left: 0.5rem;
+        margin-left: $navItemSeparationSmallScreen;
       }
     }
   }

@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react';
 import './form.scss';
 
-export default function Form({ form, isActive, onChange, NextButton, BackButton }) {
+export default function Form({ form, onChange, children }) {
   useEffect(() => {
-    document.getElementsByClassName('active-form')[0].firstChild.lastChild.focus();
-  }, [isActive]);
+    document.getElementsByTagName('form')[0].firstChild.lastChild.focus();
+  }, []);
 
-  const isFormComplete = () => {
-    let isAnEmptyField = Object.values(form).find(value => value.content === '');
-    return !isAnEmptyField;
+  const isIncomplete = () => {
+    return Object.values(form).find(value => value.content === '');
   };
 
   return (
-    <form className={`form-wrapper ${isActive ? 'active-form' : 'inactive'}`}>
+    <form className={`form-wrapper ${isIncomplete() ? 'incomplete' : ''}`}>
       {Object.entries(form).map(([key, value]) => {
         return (
           <div key={key} className='field-wrapper'>
@@ -27,10 +26,7 @@ export default function Form({ form, isActive, onChange, NextButton, BackButton 
           </div>
         );
       })}
-      <div className='form-buttons-wrapper'>
-        <NextButton className='next' canClick={isFormComplete} />
-        {BackButton && <BackButton className='back' canClick />}
-      </div>
+      {children}
     </form>
   );
 }

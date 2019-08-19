@@ -6,72 +6,42 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: opacity ease-in-out 0.2s;
 
-  &.inactive {
-    opacity: 0.5;
+  &.incomplete .form-button {
     pointer-events: none;
+    opacity: 0.5;
   }
 
-  > form {
-    width: 90%;
-  }
-
-  .form-buttons-wrapper {
+  .field-wrapper {
     display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    width: 100%;
 
-    .back {
-      order: 1;
-      width: 4rem;
+    > label {
+      margin-left: 0.5rem;
+      margin-bottom: 0.2rem;
+      font-size: 0.8rem;
+      color: $lightTextColour;
     }
 
-    .next {
-      order: 2;
-      width: 7rem;
-    }
-  }
-}
+    > input {
+      border-radius: $boxBorderRadius;
+      color: $darkTextColour;
+      font-size: 1.1rem;
+      padding: 0.5rem;
+      border: none;
+      outline: none;
+      border-bottom: 2px solid $lightTextColour;
+      background: #f4f4f4;
 
-.field-wrapper {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-  width: 100%;
+      &:focus {
+        border-color: $primaryBlueColour;
+      }
 
-  > label {
-    margin-left: 0.5rem;
-    margin-bottom: 0.2rem;
-    font-size: 0.8rem;
-    color: $lightTextColour;
-  }
-
-  > input {
-    border-radius: $boxBorderRadius;
-    color: $darkTextColour;
-    font-size: 1.1rem;
-    padding: 0.5rem;
-    border: none;
-    outline: none;
-    border-bottom: 2px solid $lightTextColour;
-    background: #f4f4f4;
-
-    &:focus {
-      border-color: $primaryBlueColour;
-    }
-
-    &.filled {
-      border-color: $primaryBlueColour;
-    }
-  }
-}
-
-@media (max-width: 800px) {
-  .form-wrapper {
-    margin: auto;
-    margin-bottom: $containerMargin;
-
-    > form {
-      width: 100%;
+      &.filled {
+        border-color: $primaryBlueColour;
+      }
     }
   }
 }

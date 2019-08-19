@@ -1,28 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { userActions } from '../../actions';
-import FormsList from '../FormsList/FormsList';
+import Form from '../Form/Form';
 import FormButton from '../FormButton/FormButton';
 import PropTypes from 'prop-types';
 import './register.scss';
 
-const initalForms = [
-  {
-    title: { label: 'Title', content: '', type: 'text' },
-    firstName: { label: 'First Name', content: '', type: 'text' },
-    lastName: { label: 'Last Name', content: '', type: 'text' },
-    email: { label: 'Email', content: '', type: 'email' }
-  },
-  {
-    username: { label: 'Username', content: '', type: 'text' },
-    password: { label: 'Password', content: '', type: 'password' },
-    mobileNumber: { label: 'Mobile Number', content: '', type: 'tel' },
-    country: { label: 'Country of Residence', content: '', type: 'text' }
-  }
-];
+const initalForm = {
+  firstName: { label: 'First Name', content: '', type: 'text' },
+  lastName: { label: 'Last Name', content: '', type: 'text' },
+  email: { label: 'Email', content: '', type: 'email' },
+  username: { label: 'Username', content: '', type: 'text' },
+  password: { label: 'Password', content: '', type: 'password' },
+  confirmPassword: { label: 'Confirm Password', content: '', type: 'password' }
+};
 
-export function Register({ registered, registering, register, resetRegistration }) {
-  const [forms, setForms] = useState(initalForms);
+export function Register({ registered, registering, register, resetRegistration, history }) {
+  const [form, setForm] = useState(initalForm);
 
   useEffect(() => {
     return () => {
@@ -30,41 +25,32 @@ export function Register({ registered, registering, register, resetRegistration 
     };
   }, [resetRegistration]);
 
-  const handleChange = (e, activeFormIndex) => {
-    const newForms = forms.map((form, formIndex) => {
-      if (activeFormIndex !== formIndex) return form;
+  const handleChange = e => {
+    const newForm = {
+      ...form,
+      [e.target.name]: {
+        ...form[e.target.name],
+        content: e.target.value
+      }
+    };
 
-      return {
-        ...form,
-        [e.target.name]: {
-          ...form[e.target.name],
-          content: e.target.value
-        }
-      };
-    });
-
-    setForms(newForms);
+    setForm(newForm);
   };
 
   const handleReset = () => {
-    setForms(initalForms);
+    setForm(initalForm);
     resetRegistration();
   };
 
   const handleRegister = () => {
-    let allDetails = Object.assign({}, ...forms);
-    register(allDetails);
+    register(form, history);
   };
 
-  const RegisterButton = ({ canClick }) => {
+  const RegisterButton = () => {
     return (
-      <FormButton
-        text='Register'
-        type='next'
-        onClick={handleRegister}
-        canClick={canClick}
-        loading={registering}
-      />
+      <FormButton onClick={handleRegister} loading={registering}>
+        Register
+      </FormButton>
     );
   };
 
@@ -72,11 +58,9 @@ export function Register({ registered, registering, register, resetRegistration 
     return (
       <div className='registration-wrapper'>
         <h3 className='registration-title'>Please enter your registration details</h3>
-        <FormsList
-          forms={forms}
-          onChange={(e, activeFormIndex) => handleChange(e, activeFormIndex)}
-          CompleteButton={RegisterButton}
-        />
+        <Form form={form} onChange={handleChange}>
+          <RegisterButton />
+        </Form>
       </div>
     );
   } else {
@@ -112,4 +96,4 @@ const actionCreators = {
 export default connect(
   mapStateToProps,
   actionCreators
-)(Register);
+)(withRouter(Register));

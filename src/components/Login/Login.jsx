@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { userActions } from '../../actions';
 import Form from '../Form/Form';
 import FormButton from '../FormButton/FormButton';
@@ -11,7 +12,7 @@ const initialLoginForm = {
   password: { label: 'Password', content: '', type: 'password' }
 };
 
-export function Login({ login, loggingIn }) {
+export function Login({ login, loggingIn, history }) {
   const [form, setForm] = useState(initialLoginForm);
 
   const handleChange = e => {
@@ -27,25 +28,23 @@ export function Login({ login, loggingIn }) {
   };
 
   const handleLogin = () => {
-    login(form);
+    login(form, history);
   };
 
-  const LoginButton = ({ canClick }) => {
+  const LoginButton = () => {
     return (
-      <FormButton
-        text='Login'
-        type='next'
-        onClick={handleLogin}
-        canClick={canClick}
-        loading={loggingIn}
-      />
+      <FormButton onClick={handleLogin} loading={loggingIn}>
+        Login
+      </FormButton>
     );
   };
 
   return (
     <div className='login-wrapper'>
       <h3 className='login-title'>Please enter your login details</h3>
-      <Form form={form} isActive onChange={handleChange} NextButton={LoginButton} />
+      <Form form={form} onChange={handleChange}>
+        <LoginButton />
+      </Form>
     </div>
   );
 }
@@ -63,4 +62,4 @@ const actionCreators = {
 export default connect(
   mapStateToProps,
   actionCreators
-)(Login);
+)(withRouter(Login));

@@ -1,17 +1,15 @@
 @import '../../variables.scss';
 
-.form-btn {
-  &.back {
-    color: $darkTextColour;
-  }
+.form-button {
+  width: 7rem;
+  color: $offWhiteColour;
+  background: $primaryBlueColour;
 
-  &.next {
-    background: $primaryBlueColour;
-    color: $whiteTextColour;
+  &:disabled {
+    opacity: 0.5;
   }
 
   &.loading {
-    opacity: 0.5;
     background-image: url('../../assets/loading-spinner.gif');
     background-position: center;
     background-repeat: no-repeat;

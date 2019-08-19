@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Link, NavLink, withRouter } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { userActions } from '../../actions';
 import PropTypes from 'prop-types';
 import './navbar.scss';
 
-export function Navbar({ loggedIn, logout, username, history }) {
-  useEffect(() => {
-    if (loggedIn) history.push('/');
-  }, [loggedIn, history]);
+export function Navbar({ loggedIn, logout, username }) {
   return (
     <nav>
       <Link className='app-title' to='/'>
@@ -79,4 +76,4 @@ const actionCreators = {
 export default connect(
   mapStateToProps,
   actionCreators
-)(withRouter(Navbar));
+)(Navbar);

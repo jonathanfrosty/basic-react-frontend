@@ -6,13 +6,7 @@ import Counter from '../Counter/Counter';
 import PropTypes from 'prop-types';
 import './shoppingBasket.scss';
 
-export function ShoppingBasket({
-  counters,
-  changeValue,
-  addCounter,
-  deleteCounter,
-  resetCounters
-}) {
+export function ShoppingBasket({ counters, changeValue, addCounter, deleteCounter, resetCounters }) {
   const handleDelete = id => {
     deleteCounter(id);
   };

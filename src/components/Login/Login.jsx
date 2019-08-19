@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { userActions } from '../../actions';
@@ -12,8 +12,13 @@ const initialLoginForm = {
   password: { label: 'Password', content: '', type: 'password' }
 };
 
-export function Login({ login, loggingIn, history }) {
+export function Login({ login, loggingIn, registered, resetRegisteredStatus, history }) {
   const [form, setForm] = useState(initialLoginForm);
+  useEffect(() => {
+    return () => {
+      resetRegisteredStatus();
+    };
+  }, [resetRegisteredStatus]);
 
   const handleChange = e => {
     const newForm = {
@@ -31,9 +36,9 @@ export function Login({ login, loggingIn, history }) {
     login(form, history);
   };
 
-  const LoginButton = () => {
+  const LoginButton = ({ isFormIncomplete }) => {
     return (
-      <FormButton onClick={handleLogin} loading={loggingIn}>
+      <FormButton onClick={handleLogin} isFormIncomplete={isFormIncomplete} loading={loggingIn}>
         Login
       </FormButton>
     );
@@ -41,22 +46,28 @@ export function Login({ login, loggingIn, history }) {
 
   return (
     <div className='login-wrapper'>
+      {registered && <div className='registration-success'>Registration successful</div>}
       <h3 className='login-title'>Please enter your login details</h3>
-      <Form form={form} onChange={handleChange}>
-        <LoginButton />
-      </Form>
+      <Form form={form} onChange={handleChange} SubmitButton={LoginButton} />
     </div>
   );
 }
 
 Login.propTypes = {
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  loggingIn: PropTypes.bool.isRequired,
+  registered: PropTypes.bool.isRequired,
+  resetRegisteredStatus: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({ loggingIn: state.auth.loggingIn });
+const mapStateToProps = state => ({
+  loggingIn: state.auth.loggingIn,
+  registered: state.register.registered
+});
 
 const actionCreators = {
-  login: userActions.login
+  login: userActions.login,
+  resetRegisteredStatus: userActions.resetRegistration
 };
 
 export default connect(

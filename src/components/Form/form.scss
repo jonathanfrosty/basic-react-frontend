@@ -7,11 +7,6 @@
   flex-direction: column;
   align-items: center;
 
-  &.incomplete .form-button {
-    pointer-events: none;
-    opacity: 0.5;
-  }
-
   .field-wrapper {
     display: flex;
     flex-direction: column;

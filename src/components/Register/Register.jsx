@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { userActions } from '../../actions';
@@ -16,14 +16,8 @@ const initalForm = {
   confirmPassword: { label: 'Confirm Password', content: '', type: 'password' }
 };
 
-export function Register({ registered, registering, register, resetRegistration, history }) {
+export function Register({ register, registering, history }) {
   const [form, setForm] = useState(initalForm);
-
-  useEffect(() => {
-    return () => {
-      resetRegistration();
-    };
-  }, [resetRegistration]);
 
   const handleChange = e => {
     const newForm = {
@@ -37,60 +31,37 @@ export function Register({ registered, registering, register, resetRegistration,
     setForm(newForm);
   };
 
-  const handleReset = () => {
-    setForm(initalForm);
-    resetRegistration();
-  };
-
   const handleRegister = () => {
     register(form, history);
   };
 
-  const RegisterButton = () => {
+  const RegisterButton = ({ isFormIncomplete }) => {
     return (
-      <FormButton onClick={handleRegister} loading={registering}>
+      <FormButton onClick={handleRegister} isFormIncomplete={isFormIncomplete} loading={registering}>
         Register
       </FormButton>
     );
   };
 
-  if (!registered) {
-    return (
-      <div className='registration-wrapper'>
-        <h3 className='registration-title'>Please enter your registration details</h3>
-        <Form form={form} onChange={handleChange}>
-          <RegisterButton />
-        </Form>
-      </div>
-    );
-  } else {
-    return (
-      <div className='registration-complete-wrapper'>
-        <h2>Registration Complete</h2>
-        <div className='register-again-wrapper'>
-          <button className='register-again-button' onClick={handleReset}>
-            Register again
-          </button>
-        </div>
-      </div>
-    );
-  }
+  return (
+    <div className='registration-wrapper'>
+      <h3 className='registration-title'>Please enter your registration details</h3>
+      <Form form={form} onChange={handleChange} SubmitButton={RegisterButton} />
+    </div>
+  );
 }
 
 Register.propTypes = {
-  registered: PropTypes.bool.isRequired,
   register: PropTypes.func.isRequired,
-  resetRegistration: PropTypes.func.isRequired
+  registering: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = state => {
-  const { registered, registering } = state.register;
-  return { registered, registering };
-};
+const mapStateToProps = state => ({
+  registering: state.register.registering
+});
 
 const actionCreators = {
-  register: userActions.register,
-  resetRegistration: userActions.resetRegistration
+  register: userActions.register
 };
 
 export default connect(

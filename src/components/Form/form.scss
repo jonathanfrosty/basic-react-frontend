@@ -1,11 +1,15 @@
 @import '../../variables.scss';
 
 .form-wrapper {
-  width: 25rem;
-  margin: 0 1rem;
+  width: 100%;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  .title {
+    color: $darkTextColour;
+  }
 
   .field-wrapper {
     display: flex;
@@ -36,6 +40,11 @@
 
       &.filled {
         border-color: $primaryBlueColour;
+      }
+
+      &.error {
+        border-color: $primaryRedColour;
+        background-color: rgba($primaryRedColour, 0.1);
       }
     }
   }

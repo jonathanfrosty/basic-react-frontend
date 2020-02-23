@@ -1,9 +1,14 @@
 @import '../../variables.scss';
 
 .form-button {
-  width: 7rem;
-  color: $offWhiteColour;
-  background: $primaryBlueColour;
+  min-width: 5rem;
+  color: $darkTextColour;
+
+  &.submit {
+    min-width: 7rem;
+    color: $offWhiteColour;
+    background: $primaryBlueColour;
+  }
 
   &:disabled {
     opacity: 0.5;

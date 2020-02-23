@@ -1,9 +1,4 @@
-import {
-  CHANGE_VALUE,
-  ADD_COUNTER,
-  DELETE_COUNTER,
-  RESET_COUNTERS
-} from '../constants/actionTypes';
+import { CHANGE_VALUE, ADD_COUNTER, DELETE_COUNTER, RESET_COUNTERS } from '../constants/actionTypes';
 
 const initialState = [];
 
@@ -11,7 +6,7 @@ const generateRandomCost = () => {
   return (Math.random() * (100 - 0.01 + 1) + 0.01).toFixed(2);
 };
 
-export default function(state = initialState, action) {
+export default (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_VALUE:
       return state.map(counter => {
@@ -37,4 +32,4 @@ export default function(state = initialState, action) {
     default:
       return state;
   }
-}
+};

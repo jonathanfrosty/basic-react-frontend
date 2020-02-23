@@ -1,20 +1,15 @@
 @import '../../variables.scss';
 
 .registration-wrapper {
+  width: 25rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  .registration-title {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: $darkTextColour;
-  }
+  align-items: center;
 }
 
 .registration-complete-wrapper {
   color: $darkTextColour;
-  text-align: center;
 
   .register-again-button {
     background: none;

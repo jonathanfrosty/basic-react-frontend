@@ -1,0 +1,13 @@
+@import '../../variables.scss';
+
+.error-list {
+  padding: 0.6rem;
+  font-size: 0.85rem;
+  text-align: center;
+  background-color: rgba($primaryRedColour, 0.1);
+  border-radius: 5px;
+
+  div {
+    color: $primaryRedColour;
+  }
+}

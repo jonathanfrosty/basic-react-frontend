@@ -1,12 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { basketActions } from '../../actions';
-import Counters from '../Counters/Counters';
-import Counter from '../Counter/Counter';
+import Counters from '../Counters';
+import Counter from '../Counter';
 import PropTypes from 'prop-types';
 import './shoppingBasket.scss';
 
-export function ShoppingBasket({ counters, changeValue, addCounter, deleteCounter, resetCounters }) {
+export function ShoppingBasket({
+  counters,
+  changeValue,
+  addCounter,
+  deleteCounter,
+  resetCounters
+}) {
   const handleDelete = id => {
     deleteCounter(id);
   };
